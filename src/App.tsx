@@ -87,7 +87,7 @@ const App: React.FC = () => {
       });
     });
 
-    setTimeout(runSimulation, 1000);
+    setTimeout(runSimulation, 100);
   }, []);
 
   return (
@@ -95,8 +95,10 @@ const App: React.FC = () => {
       <button
         onClick={() => {
           setRunning(!running);
-          runningRef.current = true;
-          runSimulation();
+          if (!running) {
+            runningRef.current = true;
+            runSimulation();
+          }
         }}
       >
         {running ? "Stop Simulation" : "Start Simulation"}
