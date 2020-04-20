@@ -92,7 +92,13 @@ const App: React.FC = () => {
 
   return (
     <>
-      <button onClick={() => setRunning(!running)}>
+      <button
+        onClick={() => {
+          setRunning(!running);
+          runningRef.current = true;
+          runSimulation();
+        }}
+      >
         {running ? "Stop Simulation" : "Start Simulation"}
       </button>
       <div
