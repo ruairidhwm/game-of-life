@@ -5,6 +5,15 @@ const App: React.FC = () => {
   const numberOfRows: number = 50;
   const numberOfColumns: number = 50;
 
+  const generateEmptyGrid = () => {
+    const rows = [];
+    for (let i = 0; i < numberOfRows; i++) {
+      rows.push(Array.from(Array(numberOfColumns), () => 0));
+    }
+
+    return rows;
+  };
+
   /**
    * An array of coordinates which
    * represents the relative positions
@@ -29,14 +38,7 @@ const App: React.FC = () => {
    *
    * By default we start everything as dead.
    */
-  const [grid, setGrid] = useState(() => {
-    const rows = [];
-    for (let i = 0; i < numberOfRows; i++) {
-      rows.push(Array.from(Array(numberOfColumns), () => 0));
-    }
-
-    return rows;
-  });
+  const [grid, setGrid] = useState(() => generateEmptyGrid());
 
   const [running, setRunning] = useState(false);
 
@@ -103,6 +105,8 @@ const App: React.FC = () => {
       >
         {running ? "Stop Simulation" : "Start Simulation"}
       </button>
+      <button onClick={() => setGrid(generateEmptyGrid())}>Clear</button>
+      <button onClick={() => setGrid(generateEmptyGrid())}>Clear</button>
       <div
         style={{
           display: "grid",
