@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import produce from "immer";
 
 const numberOfRows: number = 50;
 const numberOfColumns: number = 50;
@@ -32,6 +33,16 @@ const App: React.FC = () => {
         rows.map((col, columnIndex) => (
           <div
             key={`${rowIndex}-${columnIndex}`}
+            onClick={() => {
+              /**
+               * Uses immer to clone the grid and then
+               * we push it into state.
+               */
+              const newGrid = produce(grid, (gridCopy) => {
+                gridCopy[rowIndex][columnIndex] = 1;
+              });
+              setGrid(newGrid);
+            }}
             style={{
               width: 20,
               height: 20,
