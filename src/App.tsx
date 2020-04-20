@@ -106,7 +106,22 @@ const App: React.FC = () => {
         {running ? "Stop Simulation" : "Start Simulation"}
       </button>
       <button onClick={() => setGrid(generateEmptyGrid())}>Clear</button>
-      <button onClick={() => setGrid(generateEmptyGrid())}>Clear</button>
+      <button
+        onClick={() => {
+          const rows = [];
+          for (let i = 0; i < numberOfRows; i++) {
+            rows.push(
+              Array.from(Array(numberOfColumns), () =>
+                Math.random() > 0.5 ? 1 : 0
+              )
+            );
+          }
+
+          setGrid(rows);
+        }}
+      >
+        Randomise
+      </button>
       <div
         style={{
           display: "grid",
