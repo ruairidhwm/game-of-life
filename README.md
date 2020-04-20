@@ -1,6 +1,6 @@
 # Conway's Game of Life
 
-This is a simple implementation of (Conway's Game of Life)[https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life] in React and TypeScript.
+This is a simple implementation of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) in React and TypeScript.
 
 We must follow these rules:
 
