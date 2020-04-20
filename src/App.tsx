@@ -39,7 +39,9 @@ const App: React.FC = () => {
                * we push it into state.
                */
               const newGrid = produce(grid, (gridCopy) => {
-                gridCopy[rowIndex][columnIndex] = 1;
+                gridCopy[rowIndex][columnIndex] = grid[rowIndex][columnIndex]
+                  ? 0
+                  : 1;
               });
               setGrid(newGrid);
             }}
