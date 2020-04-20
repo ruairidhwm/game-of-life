@@ -6,6 +6,22 @@ const App: React.FC = () => {
   const numberOfColumns: number = 50;
 
   /**
+   * An array of coordinates which
+   * represents the relative positions
+   * of a cell's neighbours.
+   */
+  const cellOps = [
+    [0, 1],
+    [0, -1],
+    [1, -1],
+    [-1, 1],
+    [1, 1],
+    [-1, -1],
+    [1, 0],
+    [-1, 0],
+  ];
+
+  /**
    * @description
    * Creates the array we need to store our
    * grid in. We set 0 as being dead, and will
@@ -41,6 +57,36 @@ const App: React.FC = () => {
     if (!runningRef.current) {
       return;
     }
+
+    setGrid((grid) => {
+      return produce(grid, (gridCopy) => {
+        for (let i = 0; i < numberOfRows; i++) {
+          for (let j = 0; j < numberOfColumns; j++) {
+            let neighbours = 0;
+            cellOps.forEach(([x, y]) => {
+              const newI = i + x;
+              const newJ = j + y;
+              // Stop our function running outside of the grid boundaries
+              if (
+                newI >= 0 &&
+                newI < numberOfRows &&
+                newJ >= 0 &&
+                newJ < numberOfColumns
+              ) {
+                neighbours += grid[newI][newJ];
+              }
+            });
+
+            if (neighbours < 2 || neighbours > 3) {
+              gridCopy[i][j] = 0;
+            } else if (grid[i][j] === 0 && neighbours === 3) {
+              gridCopy[i][j] = 1;
+            }
+          }
+        }
+      });
+    });
+
     setTimeout(runSimulation, 1000);
   }, []);
 
