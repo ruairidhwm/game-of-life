@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import produce from "immer";
 
 const App: React.FC = () => {
@@ -23,6 +23,26 @@ const App: React.FC = () => {
   });
 
   const [running, setRunning] = useState(false);
+
+  /**
+   * Create a ref here so we can access
+   * running in our runSimulation function
+   * which uses useCallback.
+   */
+  const runningRef = useRef(running);
+  runningRef.current = running;
+
+  /**
+   * Using useCallback so that we don't re-create
+   * this function every render. This function will
+   * only be created once for efficiency.
+   */
+  const runSimulation = useCallback(() => {
+    if (!runningRef.current) {
+      return;
+    }
+    setTimeout(runSimulation, 1000);
+  }, []);
 
   return (
     <>
