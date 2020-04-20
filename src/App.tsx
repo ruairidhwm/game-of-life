@@ -21,10 +21,14 @@ const [grid, setGrid] = useState(() => {
   return rows;
 });
 
+const [running, setRunning] = useState(false);
+
 const App: React.FC = () => {
   return (
     <>
-      <button>Start Simulation</button>
+      <button onClick={() => setRunning(!running)}>
+        {running ? "Stop Simulation" : "Start Simulation"}
+      </button>
       <div
         style={{
           display: "grid",
