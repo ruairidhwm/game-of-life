@@ -23,40 +23,43 @@ const [grid, setGrid] = useState(() => {
 
 const App: React.FC = () => {
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: `repeat(${numberOfColumns}, 20px)`,
-      }}
-    >
-      {grid.map((rows, rowIndex) =>
-        rows.map((col, columnIndex) => (
-          <div
-            key={`${rowIndex}-${columnIndex}`}
-            onClick={() => {
-              /**
-               * Uses immer to clone the grid and then
-               * we push it into state.
-               */
-              const newGrid = produce(grid, (gridCopy) => {
-                gridCopy[rowIndex][columnIndex] = grid[rowIndex][columnIndex]
-                  ? 0
-                  : 1;
-              });
-              setGrid(newGrid);
-            }}
-            style={{
-              width: 20,
-              height: 20,
-              backgroundColor: grid[rowIndex][columnIndex]
-                ? "green"
-                : undefined,
-              border: "solid 1px black",
-            }}
-          ></div>
-        ))
-      )}
-    </div>
+    <>
+      <button>Start Simulation</button>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: `repeat(${numberOfColumns}, 20px)`,
+        }}
+      >
+        {grid.map((rows, rowIndex) =>
+          rows.map((col, columnIndex) => (
+            <div
+              key={`${rowIndex}-${columnIndex}`}
+              onClick={() => {
+                /**
+                 * Uses immer to clone the grid and then
+                 * we push it into state.
+                 */
+                const newGrid = produce(grid, (gridCopy) => {
+                  gridCopy[rowIndex][columnIndex] = grid[rowIndex][columnIndex]
+                    ? 0
+                    : 1;
+                });
+                setGrid(newGrid);
+              }}
+              style={{
+                width: 20,
+                height: 20,
+                backgroundColor: grid[rowIndex][columnIndex]
+                  ? "green"
+                  : undefined,
+                border: "solid 1px black",
+              }}
+            ></div>
+          ))
+        )}
+      </div>
+    </>
   );
 };
 
