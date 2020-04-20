@@ -90,71 +90,104 @@ const App: React.FC = () => {
     });
 
     setTimeout(runSimulation, 100);
-  }, []);
+  }, [cellOps]);
 
   return (
     <>
-      <button
-        onClick={() => {
-          setRunning(!running);
-          if (!running) {
-            runningRef.current = true;
-            runSimulation();
-          }
-        }}
-      >
-        {running ? "Stop Simulation" : "Start Simulation"}
-      </button>
-      <button onClick={() => setGrid(generateEmptyGrid())}>Clear</button>
-      <button
-        onClick={() => {
-          const rows = [];
-          for (let i = 0; i < numberOfRows; i++) {
-            rows.push(
-              Array.from(Array(numberOfColumns), () =>
-                Math.random() > 0.5 ? 1 : 0
-              )
-            );
-          }
-
-          setGrid(rows);
-        }}
-      >
-        Randomise
-      </button>
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: `repeat(${numberOfColumns}, 20px)`,
+          gridGap: "15px",
+          justifyContent: "center",
+          borderTop: "10px solid #9685Af",
+          height: "100vh",
+          backgroundColor: "#D5D5D5",
         }}
       >
-        {grid.map((rows, rowIndex) =>
-          rows.map((col, columnIndex) => (
-            <div
-              key={`${rowIndex}-${columnIndex}`}
-              onClick={() => {
-                /**
-                 * Uses immer to clone the grid and then
-                 * we push it into state.
-                 */
-                const newGrid = produce(grid, (gridCopy) => {
-                  gridCopy[rowIndex][columnIndex] = grid[rowIndex][columnIndex]
-                    ? 0
-                    : 1;
-                });
-                setGrid(newGrid);
-              }}
-              style={{
-                width: 20,
-                height: 20,
-                backgroundColor: grid[rowIndex][columnIndex]
-                  ? "green"
-                  : undefined,
-                border: "solid 1px black",
-              }}
-            ></div>
-          ))
-        )}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            gridGap: "10px",
+            marginTop: "10px",
+            marginLeft: "40px",
+            marginRight: "40px",
+            marginBottom: "-40px",
+          }}
+        >
+          <button
+            onClick={() => {
+              setRunning(!running);
+              if (!running) {
+                runningRef.current = true;
+                runSimulation();
+              }
+            }}
+            style={{
+              backgroundColor: "#9685Af",
+              color: "#D5D5D5",
+              fontSize: "14px",
+            }}
+          >
+            {running ? "Stop Simulation" : "Start Simulation"}
+          </button>
+          <button onClick={() => setGrid(generateEmptyGrid())}>Clear</button>
+          <button
+            onClick={() => {
+              const rows = [];
+              for (let i = 0; i < numberOfRows; i++) {
+                rows.push(
+                  Array.from(Array(numberOfColumns), () =>
+                    Math.random() > 0.5 ? 1 : 0
+                  )
+                );
+              }
+
+              setGrid(rows);
+            }}
+          >
+            Randomise
+          </button>
+        </div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${numberOfColumns}, 20px)`,
+            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.18)",
+            backgroundColor: "#9099A2",
+            margin: "40px",
+          }}
+        >
+          {grid.map((rows, rowIndex) =>
+            rows.map((col, columnIndex) => (
+              <div
+                key={`${rowIndex}-${columnIndex}`}
+                onClick={() => {
+                  /**
+                   * Uses immer to clone the grid and then
+                   * we push it into state.
+                   */
+                  const newGrid = produce(grid, (gridCopy) => {
+                    gridCopy[rowIndex][columnIndex] = grid[rowIndex][
+                      columnIndex
+                    ]
+                      ? 0
+                      : 1;
+                  });
+                  setGrid(newGrid);
+                }}
+                style={{
+                  width: 20,
+                  height: 20,
+                  backgroundColor: grid[rowIndex][columnIndex]
+                    ? "#94618E"
+                    : undefined,
+                  border: "2px solid #D5D5D5",
+                }}
+              ></div>
+            ))
+          )}
+        </div>
       </div>
     </>
   );
