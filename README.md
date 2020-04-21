@@ -1,6 +1,10 @@
 # Conway's Game of Life
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d381542b-1145-473f-a91f-c750f3296b33/deploy-status)](https://app.netlify.com/sites/sharp-goldberg-10cf45/deploys)
+
 This is a simple implementation of [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) in React and TypeScript.
+
+_Demo:_ https://sharp-goldberg-10cf45.netlify.app/
 
 We must follow these rules:
 
